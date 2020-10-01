@@ -6,6 +6,7 @@ import webbrowser
 import os.path
 import random as r
 import smtplib
+import time
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -91,7 +92,13 @@ if __name__=="__main__":
         elif 'open vscode' in query:
             code_path = "C:\\Users\\HP\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
             os.startfile(code_path)
-
+            
+        elif 'hi' in query or 'hello' in query:
+            speak('Hello sir, how may I help you?')
+        
+        elif 'thank you' in query or 'thanks' in query:
+            speak('My pleasure sir')
+        
         elif 'music' in query:
             music = "E:\\music"
             songs = os.listdir(music)
@@ -103,7 +110,20 @@ if __name__=="__main__":
                 os.startfile(os.path.join(music, song))
             else: 
                 speak("i am not able to play a music.")
-                
+        elif 'timer' in query or 'stopwatch' in query:
+
+            speak("For how many minutes?")
+            wait_time = takeCommand()
+            wait_time = wait_time.replace('minutes', '')
+            wait_time = wait_time.replace('minute', '')
+            wait_time = wait_time.replace('for', '')
+            wait_time = float(wait_time)
+            wait_time = wait_time * 60
+            speak(f'I will remind you in {wait_time} seconds')
+
+            time.sleep(wait_time)
+            speak('Your time has been finished sir')
+            
         elif 'email' in query:
             try:
                 speak("what should i say?")
